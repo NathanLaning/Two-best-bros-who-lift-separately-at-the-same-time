@@ -31,3 +31,13 @@ Adds any new files (only necessary when doing so)
 ### running the thing
 
 docker-compose up
+```
+
+### Checkout/commit Branch For Making Changes
+
+```bash
+## Where you would replace NewBranchName with a real branch name like FixIssue_102__3_3_26 or something
+git checkout -b NewBranchName
+```
+
+
