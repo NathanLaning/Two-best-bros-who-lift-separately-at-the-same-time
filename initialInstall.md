@@ -28,6 +28,10 @@ Where you would replace NewBranchName with a real branch name (FixIssue_102__3_3
 git add .
 ```
 Adds any new files (only necessary when doing so)
+
+```bash
+git commit -m "your message here!"
+```
 ### running the thing
 
 docker-compose up

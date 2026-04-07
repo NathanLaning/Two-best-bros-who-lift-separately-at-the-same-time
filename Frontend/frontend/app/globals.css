@@ -1,26 +1,191 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dark red theme */
+  --bg: #0f0707; /* page background */
+  --surface: #1a0c0c; /* cards, nav */
+  --accent: #8b0000; /* primary red */
+  --accent-2: #b22222; /* hover/active */
+  --muted: #cfc6c6; /* secondary text */
+  --text: #f7f5f5; /* main text */
+  --radius: 10px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+/* @theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+} */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
 }
+
+/* Top navigation for desktop, bottom nav for mobile */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header.site-header {
+  background: linear-gradient(90deg, rgba(0,0,0,0.12), rgba(0,0,0,0.04));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.nav-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex: 1;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand {
+  font-weight: 700;
+  color: var(--text);
+  padding: .5em 1em;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.nav-dropdown-menu{
+  display: flex;
+  flex-direction: column;
+}
+.nav-link {
+  color: var(--muted);
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nav-link:hover { background: rgba(255,255,255,0.02); color: var(--text);} 
+.nav-link.active { background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: white; }
+
+.content {
+  flex: 1;
+  max-width: 1100px;
+  margin: 24px auto;
+  width: 100%;
+  padding: 0 16px;
+  padding-bottom: calc(86px + env(safe-area-inset-bottom));
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 16px;
+  border-radius: var(--radius);
+}
+
+/* Account menu dropdown */
+.account {
+  position: relative;
+  padding-right: 1em;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+}
+.account-menu {
+  position: absolute;
+  right: 0;
+  top: 44px;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 12px;
+  min-width: 220px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  z-index: 40;
+}
+.account-menu label { display:block; font-size: 13px; color:var(--muted); margin-bottom:6px }
+.account-menu .row { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+
+/* Persistent bottom navigation */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+  background: rgba(18, 8, 8, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 60;
+  backdrop-filter: blur(8px);
+}
+
+.bottom-nav-item {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 6px;
+  border-radius: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  line-height: 1.15;
+  font-size: clamp(0.62rem, 1.9vw, 0.95rem);
+  font-weight: 650;
+}
+
+.bottom-nav-item:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.bottom-nav-item.active {
+  color: white;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+
