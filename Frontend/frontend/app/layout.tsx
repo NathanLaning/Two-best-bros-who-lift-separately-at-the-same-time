@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 import NavBar from "./components/NavBar";
+import AccountMenu from "./components/AccountMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Gym App",
-  description: "Gym app UI",
+  description: "Gym app",
 };
 
 export default function RootLayout({
@@ -30,22 +32,21 @@ export default function RootLayout({
     >
       <body className="app-shell">
         <header className="site-header">
-          <nav className="nav">
-            <div className="nav-left">
-              <div className="brand">Two Bros Gym</div>
-              <div className="nav-items">
-                <NavBar />
+            <div className="brand">
+              <Link
+              href="/"
+              key="/"
+              >Two Bros Gym</Link>
               </div>
-            </div>
-            <div className="nav-right">
-              {/* Account menu rendered inside NavBar for desktop */}
-            </div>
-          </nav>
+            <div className="account">
+            <AccountMenu />
+            </div>  
         </header>
+        
 
         <main className="content">{children}</main>
 
-        {/* mobile bottom nav rendered by NavBar within itself via CSS */}
+        <NavBar />
       </body>
     </html>
   );

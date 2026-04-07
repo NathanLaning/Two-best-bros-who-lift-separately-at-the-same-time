@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import SignIn from "./SignIn";
 
 export default function AccountMenu() {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState(true);
   const [units, setUnits] = useState("kg");
+  const [username, setUsername] = useState("User@example.com");
+  const [showSignIn, setShowSignIn] = useState(false);
 
   useEffect(() => {
     try {
@@ -14,6 +17,10 @@ export default function AccountMenu() {
         const s = JSON.parse(raw);
         setNotifications(Boolean(s.notifications));
         setUnits(s.units || "kg");
+      }
+      const savedUser = localStorage.getItem("account.username");
+      if (savedUser) {
+        setUsername(savedUser);
       }
     } catch {}
   }, []);
@@ -41,18 +48,8 @@ export default function AccountMenu() {
         <div className="account-menu" role="dialog" aria-label="Account menu">
           <div style={{ marginBottom: 8 }}>
             <strong>Account</strong>
-            <div style={{ fontSize: 13, color: "var(--muted)" }}>User@example.com</div>
+            <div style={{ fontSize: 13, color: "var(--muted)" }}>{username}</div>
           </div>
-
-          <div className="row">
-            <label>Notifications</label>
-            <input
-              type="checkbox"
-              checked={notifications}
-              onChange={(e) => setNotifications(e.target.checked)}
-            />
-          </div>
-
           <div className="row">
             <label>Units</label>
             <select value={units} onChange={(e) => setUnits(e.target.value)}>
@@ -64,13 +61,34 @@ export default function AccountMenu() {
           <div style={{ marginTop: 8 }}>
             <button
               onClick={() => {
-                // close and simulate save
-                setOpen(false);
+                setShowSignIn(true);
               }}
-              style={{ padding: "8px 12px", borderRadius: 8, background: "var(--accent)", color: "white", border: "none" }}
+              style={{
+                padding: "8px 12px",
+                borderRadius: 8,
+                border: "1px solid var(--line)",
+                background: "var(--accent)",
+                marginRight: 8,
+                cursor: "pointer",
+              }}
             >
-              Save
+              Sign In
             </button>
+
+            {showSignIn && (
+              <SignIn
+                initialUsername={username === "User@example.com" ? "" : username}
+                onSubmit={(nextUsername) => {
+                  setUsername(nextUsername);
+                  try {
+                    localStorage.setItem("account.username", nextUsername);
+                  } catch {}
+                  setShowSignIn(false);
+                  setOpen(false);
+                }}
+                onCancel={() => setShowSignIn(false)}
+              />
+            )}
           </div>
         </div>
       )}

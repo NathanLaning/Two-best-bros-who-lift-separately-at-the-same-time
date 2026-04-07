@@ -51,7 +51,7 @@ export default function CoachPage() {
     <div>
       <h1>Coach</h1>
       <div className="card" style={{ marginTop: 12 }}>
-        <p>Messages, tips, and coach recommendations.</p>
+        <p>Messages, tips, and recommendations based on your current or previous lifts</p>
 
         <div style={{ border: "1px solid #ddd", padding: 12, height: 300, overflow: "auto" }}>
           {messages.map((m) => (
